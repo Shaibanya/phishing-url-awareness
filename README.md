@@ -115,14 +115,14 @@ The program is tested using sample URL strings to check whether its warning sign
 
 The test records are maintained in `tests/test_samples.md`.
 
-| Test | Input | Expected result |
-|---|---|---|
-| 1 | `https://www.example.com/login` | No listed warning signs; the program must clarify that this does not prove safety. |
-| 2 | `http://192.0.2.10/account` | IP-address and HTTP warnings. |
-| 3 | `http://example.com@sample.invalid/login` | @-symbol and HTTP warnings. |
-| 4 | `https://a.b.c.d.e.example.invalid/path` | Many hostname segments warning. |
-| 5 | `https://xn--example.invalid/` | Punycode warning. |
-| 6 | `http://[bad` | Malformed URL handled without an unexpected crash. |
+| Test | Input                                     | Expected result                                                                    |
+| ---- | ----------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1    | `https://www.example.com/login`           | No listed warning signs; the program must clarify that this does not prove safety. |
+| 2    | `http://192.0.2.10/account`               | IP-address and HTTP warnings.                                                      |
+| 3    | `http://example.com@sample.invalid/login` | @-symbol and HTTP warnings.                                                        |
+| 4    | `https://a.b.c.d.e.example.invalid/path`  | Many hostname segments warning.                                                    |
+| 5    | `https://xn--example.invalid/`            | Punycode warning.                                                                  |
+| 6    | `http://[bad`                             | Malformed URL handled without an unexpected crash.                                 |
 
 The first five cases are the workbook's sample tests. The sixth case checks the malformed-input improvement.
 
@@ -132,13 +132,13 @@ The first five cases are the workbook's sample tests. The sixth case checks the 
 
 ### Sample Program Run
 
-This screenshot shows an example of the program running in the terminal.
+This screenshot shows the program running and explaining detected URL warning signs.
 
 ![Sample run](screenshots/sample_run.png)
 
 ### Test Results
 
-This screenshot shows additional URL checks and their results.
+This screenshot shows additional URL checks, including malformed URL handling.
 
 ![Test results](screenshots/test_results.png)
 
