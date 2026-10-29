@@ -1,39 +1,115 @@
-# Phishing URL Awareness Checker
+# 🛡️ Phishing URL Awareness Checker
 
-An educational cybersecurity project that helps users identify common warning signs in potentially suspicious URLs. The project includes a Python command-line checker and a Flask-based web interface that displays detected warnings with explanations.
+An educational cybersecurity project that helps users identify common warning signs in potentially suspicious URLs. Built with Python, this project includes a command-line checker and a Flask-based web application with a simple, user-friendly interface.
 
-## Overview
+🔗 **Live Demo:** https://phishing-url-awareness.onrender.com/
 
-Phishing attacks often use deceptive URLs to trick users into visiting malicious websites or sharing sensitive information. This project demonstrates how simple URL inspection techniques can help users recognize suspicious patterns.
+📂 **GitHub Repository:** https://github.com/Shaibanya/phishing-url-awareness
 
-The checker analyzes the text of a URL and identifies selected warning signs without visiting the website or making network requests.
+---
 
-**Important:** This is an educational awareness tool, not a definitive phishing detector. A URL with no warnings may still be dangerous.
+## 📌 Table of Contents
 
-## Features
+- [About the Project](#-about-the-project)
+- [Features](#-features)
+- [Technologies Used](#-technologies-used)
+- [How It Works](#-how-it-works)
+- [Project Structure](#-project-structure)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Run the Command-Line Checker](#-run-the-command-line-checker)
+- [Run the Web Application](#-run-the-web-application)
+- [Example](#-example)
+- [Testing](#-testing)
+- [Screenshots](#-screenshots)
+- [Live Demo](#-live-demo)
+- [Limitations](#-limitations)
+- [Future Improvements](#-future-improvements)
+- [Ethical Use](#-ethical-use)
+- [Author](#-author)
+- [Disclaimer](#-disclaimer)
 
-- Detects URLs containing the `@` symbol.
-- Flags URLs longer than 100 characters.
-- Identifies IPv4-style hostnames.
-- Flags hostnames containing five or more labels.
-- Detects the `xn--` punycode marker.
-- Identifies URLs using HTTP.
-- Provides explanations for detected warning signs.
-- Includes a command-line interface.
-- Includes a browser-based Flask web interface.
-- Handles malformed URL input without crashing.
-- Does not visit URLs or make network requests.
+---
 
-## Technologies Used
+## 📖 About the Project
 
-- Python
-- Flask
-- HTML
-- CSS
-- Git and GitHub
-- Gunicorn for production deployment
+Phishing is a cybersecurity threat in which attackers use deceptive messages and websites to trick people into revealing sensitive information, such as passwords, financial details, or personal data.
 
-## Project Structure
+Suspicious URLs can sometimes contain warning signs that users can learn to recognize.
+
+The **Phishing URL Awareness Checker** analyzes the text of a URL and identifies selected patterns that may deserve further investigation. It provides explanations to help users understand why a pattern could be suspicious.
+
+The project offers two ways to use the checker:
+
+1. **Command-Line Interface (CLI):** Inspect a URL directly through the terminal.
+2. **Web Application:** Enter a URL in a browser and view the detected warning signs.
+
+The application examines URL text without visiting the destination website or making network requests.
+
+### Project Objectives
+
+- Improve awareness of common suspicious URL patterns.
+- Demonstrate basic cybersecurity concepts using Python.
+- Provide explanations alongside detected warning signs.
+- Build a simple web interface using Flask.
+- Practice software development, testing, documentation, and deployment.
+
+---
+
+## ✨ Features
+
+- **At-Sign Detection:** Flags URLs containing the `@` symbol.
+- **URL Length Check:** Flags URLs longer than 100 characters.
+- **IP-Address Detection:** Identifies IPv4-style hostnames.
+- **Hostname Label Check:** Flags hostnames containing five or more labels.
+- **Punycode Detection:** Detects the `xn--` marker in a hostname.
+- **HTTP Detection:** Identifies URLs using the HTTP scheme.
+- **Explanatory Results:** Provides a reason for each detected warning.
+- **CLI Support:** Allows URL inspection through the terminal.
+- **Web Interface:** Provides a browser-based URL checking experience.
+- **Malformed Input Handling:** Handles malformed URL input without crashing.
+- **Privacy-Conscious Inspection:** Does not visit submitted URLs or make network requests.
+- **Responsive Layout:** Uses a simple layout suitable for common desktop and mobile browsers.
+
+> **Important:** These rules identify potential warning signs, not confirmed phishing attacks. A URL with no warnings may still be malicious.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core URL inspection logic |
+| Flask | Web application framework |
+| HTML | Web page structure |
+| CSS | Web page styling |
+| Git | Version control |
+| GitHub | Source code hosting |
+| Gunicorn | WSGI server for deployment |
+| Render | Web application hosting |
+
+---
+
+## ⚙️ How It Works
+
+The checker applies a set of predefined rules to the URL text supplied by the user.
+
+The current checks include:
+
+1. Checking whether the URL contains `@`.
+2. Checking whether the URL exceeds 100 characters.
+3. Checking for an IPv4-style hostname.
+4. Counting hostname labels and flagging hostnames with five or more labels.
+5. Checking for the `xn--` punycode marker.
+6. Checking whether the URL uses HTTP.
+
+When a warning is detected, the application displays its explanation.
+
+The checker does not crawl the destination website, download web content, or verify a domain's reputation.
+
+---
+
+## 📁 Project Structure
 
 ```text
 phishing-url-awareness/
@@ -51,166 +127,247 @@ phishing-url-awareness/
     └── test_samples.md
 ```
 
-## Requirements
+### File Descriptions
 
-- Python 3
-- pip
-- A web browser for the web interface
-- Git (optional, for version control)
+- `app.py` — Flask web application and browser interface.
+- `phishing_checker.py` — Core URL inspection logic and command-line checker.
+- `requirements.txt` — Python package dependencies.
+- `README.md` — Project documentation.
+- `screenshots/` — Project screenshots.
+- `tests/test_samples.md` — Documented test cases and results.
 
-## Installation
+---
 
-Clone the repository:
+## 📋 Requirements
+
+Before running the project locally, make sure you have:
+
+- Python 3 installed.
+- pip available.
+- A web browser for the web interface.
+- Git installed if you want to clone the repository.
+
+The deployed web application can be accessed through the live demo link without installing Python locally.
+
+---
+
+## 🚀 Installation
+
+### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/Shaibanya/phishing-url-awareness.git
 ```
 
-Navigate into the project directory:
+### Step 2: Open the Project Directory
 
 ```bash
 cd phishing-url-awareness
 ```
 
-Install the required dependencies:
+### Step 3: Create a Virtual Environment (Recommended)
+
+**Windows PowerShell:**
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+**macOS or Linux:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### Step 4: Install Dependencies
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-## How to Run the Command-Line Checker
+The project is now ready to run locally.
 
-Run:
+---
+
+## 💻 Run the Command-Line Checker
+
+To start the command-line version, run:
 
 ```bash
 python phishing_checker.py
 ```
 
-Follow the prompts to enter a URL and inspect the displayed warnings.
+Follow the prompts to enter a URL.
 
-The command-line checker examines the URL text and reports any recognized patterns.
+The checker will inspect the supplied text and display the warning signs identified by its rules.
 
-## How to Run the Web Application
+---
 
-The project also provides a browser-based interface built with Flask.
+## 🌐 Run the Web Application
 
-### 1. Install dependencies
+The project also includes a Flask-based web interface.
 
-```bash
-python -m pip install -r requirements.txt
-```
-
-### 2. Start the application
+### Step 1: Start the Application
 
 ```bash
 python app.py
 ```
 
-### 3. Open the website
+### Step 2: Open the Local Website
 
-Open the following address in your browser:
+Open this address in your browser:
 
-```text
 http://127.0.0.1:5000/
-```
 
-### 4. Check a URL
+### Step 3: Enter a URL
 
-Enter a URL in the input field and click **Check URL**.
+Type a URL into the input field and click **Check URL**.
 
-The application displays detected warning signs and explanations to help users understand why those patterns may deserve attention.
+### Step 4: Review the Results
 
-## Example
+The application displays the detected warning signs and their explanations.
 
-Input:
+Keep the terminal open while testing the local application. Press `Ctrl + C` in the terminal to stop the development server.
+
+---
+
+## 🧪 Example
+
+### Input
 
 ```text
 http://192.0.2.10/account
 ```
 
-Expected warning signs include:
+### Expected Warning Signs
 
-- **Uses an IP address instead of a familiar domain.**
-- **Uses HTTP. HTTPS alone does not prove trust.**
+**1. Uses an IP address instead of a familiar domain.**
 
-The application explains why each warning matters.
+An IP-address hostname may deserve extra scrutiny because it does not use a conventional domain name.
 
-The example IP address belongs to a documentation range and is used here for demonstration.
+**2. Uses HTTP. HTTPS alone does not prove trust.**
 
-## Testing
+HTTP does not provide the transport encryption normally provided by HTTPS. However, HTTPS itself does not guarantee that a website is trustworthy.
 
-The checker was tested with representative URL patterns, including:
+The checker displays explanations for the warning signs it detects.
 
-| Test case | Expected result |
+The example IP address is reserved for documentation and is included only for demonstration.
+
+---
+
+## ✅ Testing
+
+The project has been checked against representative URL patterns.
+
+| Test Case | Expected Result |
 |---|---|
 | Ordinary HTTPS URL | No listed warning signs for the example |
 | URL containing an IPv4 address | IP-address warning |
 | URL containing `@` | At-sign warning |
-| URL with a long hostname | Hostname-label warning when the threshold is met |
+| URL with five or more hostname labels | Hostname-label warning |
 | URL containing `xn--` | Punycode warning |
 | Malformed URL such as `http://[bad` | Error message instead of a crash |
 
-Detailed test cases and results are documented in `tests/test_samples.md`.
+Detailed test cases and recorded results are documented in `tests/test_samples.md`.
 
-**Note:** These tests verify the selected warning rules. They do not establish whether a URL is genuinely safe or malicious.
+These cases cover selected detection rules and malformed input handling. They do not establish whether a URL is genuinely safe or malicious.
 
-## Screenshots
+---
 
-### Command-Line Sample Run
+## 📸 Screenshots
+
+### 1. Command-Line Sample Run
+
+This screenshot demonstrates the command-line checker inspecting a URL.
 
 ![Command-line sample run](screenshots/sample_run.png)
 
-### Test Results
+### 2. Test Results
+
+This screenshot demonstrates the recorded test results for the project.
 
 ![Test results](screenshots/test_results.png)
 
-## Web Application
+---
 
-The Flask web interface allows users to enter a URL through a browser and review the warning signs detected by the checker.
+## 🔗 Live Demo
 
-The interface displays explanations alongside the results and includes a notice explaining the limitations of URL-based inspection.
+**Try the application online:**
 
-### Live Demo
+### [Open Phishing URL Awareness Checker](https://phishing-url-awareness.onrender.com/)
 
-**Live demo:** To be added after successful deployment.
+The deployed application allows users to enter URL text and review detected warning signs with explanations.
 
-## Possible Improvements
+The application is designed for educational awareness and does not visit submitted URLs.
 
-Future improvements could include:
+If the hosted service is temporarily starting up, wait a little and refresh the page.
 
-1. Adding more URL inspection rules and improving hostname parsing.
-2. Developing automated unit tests for individual detection rules.
-3. Improving accessibility and the web interface.
-4. Adding a clearer separation between malformed input and valid URLs with warning signs.
-5. Expanding educational guidance about phishing prevention.
+---
 
-## Limitations
+## ⚠️ Limitations
 
-- The checker uses a limited set of heuristic rules.
-- It does not visit websites or inspect their content.
-- It does not verify domain ownership, certificates, reputation, or website behavior.
+This project uses a limited set of heuristic rules and has important limitations:
+
+- It does not guarantee the detection of phishing URLs.
 - Legitimate URLs may trigger warnings.
 - Malicious URLs may not trigger any warnings.
-- HTTPS does not guarantee that a website is trustworthy.
-- A URL with no detected warning signs should not be considered safe solely because of this tool.
+- It does not visit or inspect destination websites.
+- It does not check domain registration information or reputation.
+- It does not validate website ownership or trustworthiness.
+- It does not establish whether a website's certificate or behavior is safe.
+- HTTPS does not guarantee that a website is legitimate.
+- A URL with no detected warnings should not automatically be considered safe.
 
-## Ethical Use
+The results should be treated as educational indicators rather than a definitive security assessment.
 
-This project is intended for cybersecurity awareness, educational demonstrations, and learning about suspicious URL patterns.
+---
 
-Do not enter confidential information into untrusted websites. Always verify website addresses independently before sharing passwords, payment information, or other sensitive data.
+## 🔮 Future Improvements
 
-## Author
+Possible improvements include:
+
+1. Adding more URL inspection rules.
+2. Improving hostname parsing and URL normalization.
+3. Adding automated unit tests for individual detection rules.
+4. Improving accessibility and mobile usability.
+5. Adding clearer validation messages for malformed input.
+6. Expanding educational explanations about phishing techniques.
+7. Improving the display of results through clearer warning categories.
+8. Adding optional integration with reputable URL reputation services, with appropriate privacy and security safeguards.
+
+These are potential future improvements and are not necessarily implemented in the current version.
+
+---
+
+## 🔐 Ethical Use
+
+This project is intended for cybersecurity education, awareness, and demonstration purposes.
+
+Users should:
+
+- Verify website addresses independently before entering sensitive information.
+- Avoid sharing passwords, payment details, or confidential information with untrusted websites.
+- Understand that a warning does not prove malicious intent.
+- Understand that the absence of a warning does not prove safety.
+
+Use the checker as an educational aid alongside careful browsing practices and appropriate security tools.
+
+---
+
+## 👨‍💻 Author
 
 **Shaibanya Dey**
 
-GitHub: [Shaibanya](https://github.com/Shaibanya)
+- **GitHub:** https://github.com/Shaibanya
+- **Project Repository:** https://github.com/Shaibanya/phishing-url-awareness
+- **Live Demo:** https://phishing-url-awareness.onrender.com/
 
-## Disclaimer
+---
 
-## Disclaimer
+## 📜 Disclaimer
 
-This project is an educational tool provided for cybersecurity awareness
-and learning purposes only. It does not guarantee the detection of
-phishing attacks and should not replace professional security tools
-or careful verification of website addresses.
+This project is provided for educational and cybersecurity awareness purposes only. It does not guarantee the detection of phishing attacks and should not replace professional security tools, independent verification, or careful online browsing practices.
+
+The author is not responsible for decisions made solely on the basis of this tool's results.
