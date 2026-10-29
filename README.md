@@ -208,4 +208,9 @@ GitHub: [Shaibanya](https://github.com/Shaibanya)
 
 ## Disclaimer
 
-This project is an educational tool and is provided for awareness purposes only
+## Disclaimer
+
+This project is an educational tool provided for cybersecurity awareness
+and learning purposes only. It does not guarantee the detection of
+phishing attacks and should not replace professional security tools
+or careful verification of website addresses.
