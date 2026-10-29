@@ -1,196 +1,211 @@
-# EWB Phishing URL Awareness Checker
+# Phishing URL Awareness Checker
+
+An educational cybersecurity project that helps users identify common warning signs in potentially suspicious URLs. The project includes a Python command-line checker and a Flask-based web interface that displays detected warnings with explanations.
 
 ## Overview
 
-Phishing is a type of online fraud in which attackers use fake links or messages to trick people into sharing sensitive information, such as passwords, OTPs, or payment details.
+Phishing attacks often use deceptive URLs to trick users into visiting malicious websites or sharing sensitive information. This project demonstrates how simple URL inspection techniques can help users recognize suspicious patterns.
 
-The Phishing URL Awareness Checker is a beginner-friendly Python project that examines URL text for common phishing warning signs. It helps users recognize potentially suspicious URL patterns without opening websites or sending information anywhere.
+The checker analyzes the text of a URL and identifies selected warning signs without visiting the website or making network requests.
 
-This is an educational project designed to improve awareness of online safety.
+**Important:** This is an educational awareness tool, not a definitive phishing detector. A URL with no warnings may still be dangerous.
 
 ## Features
 
-The program checks for six warning signs:
+- Detects URLs containing the `@` symbol.
+- Flags URLs longer than 100 characters.
+- Identifies IPv4-style hostnames.
+- Flags hostnames containing five or more labels.
+- Detects the `xn--` punycode marker.
+- Identifies URLs using HTTP.
+- Provides explanations for detected warning signs.
+- Includes a command-line interface.
+- Includes a browser-based Flask web interface.
+- Handles malformed URL input without crashing.
+- Does not visit URLs or make network requests.
 
-1. **@ Symbol:** Flags URLs containing an `@` symbol because it can make the destination confusing.
-2. **Unusually Long URL:** Flags URLs longer than 100 characters.
-3. **IP Address:** Flags URLs that use an IPv4-style address instead of a familiar domain name.
-4. **Many Hostname Segments:** Flags hostnames containing five or more segments.
-5. **Punycode Hostname:** Flags hostnames containing the `xn--` marker, which can represent international characters.
-6. **HTTP Scheme:** Flags URLs using HTTP because the connection does not have the transport encryption normally provided by HTTPS.
+## Technologies Used
 
-Additional features:
-
-- Accepts URL text through a command-line interface.
-- Handles empty input.
-- Handles certain malformed URL formats without crashing.
-- Provides explanations of why each detected warning sign matters.
-- Allows the user to exit by entering `q`, `quit`, or `exit`.
-- Does not visit websites or make network requests.
-
-**Important:** These checks identify warning signs, not confirmed phishing attacks. HTTPS does not guarantee that a website is trustworthy, and the absence of warnings does not prove that a URL is safe.
-
-## Requirements
-
-- Python 3.10 or later
-- A terminal or command prompt
-- No additional Python packages required
-
-The program uses Python's standard library.
+- Python
+- Flask
+- HTML
+- CSS
+- Git and GitHub
+- Gunicorn for production deployment
 
 ## Project Structure
 
 ```text
 phishing-url-awareness/
+│
+├── app.py
+├── phishing_checker.py
+├── requirements.txt
+├── README.md
+│
 ├── screenshots/
 │   ├── sample_run.png
 │   └── test_results.png
-├── tests/
-│   └── test_samples.md
-├── phishing_checker.py
-├── README.md
-└── requirements.txt
+│
+└── tests/
+    └── test_samples.md
 ```
 
-## How to Run
+## Requirements
 
-### Windows
+- Python 3
+- pip
+- A web browser for the web interface
+- Git (optional, for version control)
 
-1. Open the project folder in Visual Studio Code.
-2. Open the terminal.
-3. Run the following command:
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Shaibanya/phishing-url-awareness.git
+```
+
+Navigate into the project directory:
+
+```bash
+cd phishing-url-awareness
+```
+
+Install the required dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+## How to Run the Command-Line Checker
+
+Run:
 
 ```bash
 python phishing_checker.py
 ```
 
-If the `python` command is unavailable, try:
+Follow the prompts to enter a URL and inspect the displayed warnings.
+
+The command-line checker examines the URL text and reports any recognized patterns.
+
+## How to Run the Web Application
+
+The project also provides a browser-based interface built with Flask.
+
+### 1. Install dependencies
 
 ```bash
-py phishing_checker.py
+python -m pip install -r requirements.txt
 ```
 
-### macOS or Linux
-
-Open a terminal in the project folder and run:
+### 2. Start the application
 
 ```bash
-python3 phishing_checker.py
+python app.py
 ```
 
-### Exit the Program
+### 3. Open the website
 
-Enter:
+Open the following address in your browser:
 
 ```text
-q
+http://127.0.0.1:5000/
 ```
 
-You can also enter `quit` or `exit`.
+### 4. Check a URL
 
-## Example Output
+Enter a URL in the input field and click **Check URL**.
 
-Example input:
+The application displays detected warning signs and explanations to help users understand why those patterns may deserve attention.
+
+## Example
+
+Input:
 
 ```text
 http://192.0.2.10/account
 ```
 
-Example output:
+Expected warning signs include:
 
-```text
-RESULT:
-Review carefully: 2 warning sign(s) found.
-- Uses an IP address instead of a familiar domain.
-  Why it matters: An IP address instead of a recognizable domain may deserve extra scrutiny.
-- Uses HTTP. HTTPS alone does not prove trust.
-  Why it matters: HTTP does not encrypt the connection like HTTPS normally does. However, HTTPS does not guarantee that a website is trustworthy.
-```
+- **Uses an IP address instead of a familiar domain.**
+- **Uses HTTP. HTTPS alone does not prove trust.**
 
-The exact formatting depends on the program's current output.
+The application explains why each warning matters.
+
+The example IP address belongs to a documentation range and is used here for demonstration.
 
 ## Testing
 
-The program is tested using sample URL strings to check whether its warning signs work as expected.
+The checker was tested with representative URL patterns, including:
 
-The test records are maintained in `tests/test_samples.md`.
+| Test case | Expected result |
+|---|---|
+| Ordinary HTTPS URL | No listed warning signs for the example |
+| URL containing an IPv4 address | IP-address warning |
+| URL containing `@` | At-sign warning |
+| URL with a long hostname | Hostname-label warning when the threshold is met |
+| URL containing `xn--` | Punycode warning |
+| Malformed URL such as `http://[bad` | Error message instead of a crash |
 
-| Test | Input                                     | Expected result                                                                    |
-| ---- | ----------------------------------------- | ---------------------------------------------------------------------------------- |
-| 1    | `https://www.example.com/login`           | No listed warning signs; the program must clarify that this does not prove safety. |
-| 2    | `http://192.0.2.10/account`               | IP-address and HTTP warnings.                                                      |
-| 3    | `http://example.com@sample.invalid/login` | @-symbol and HTTP warnings.                                                        |
-| 4    | `https://a.b.c.d.e.example.invalid/path`  | Many hostname segments warning.                                                    |
-| 5    | `https://xn--example.invalid/`            | Punycode warning.                                                                  |
-| 6    | `http://[bad`                             | Malformed URL handled without an unexpected crash.                                 |
+Detailed test cases and results are documented in `tests/test_samples.md`.
 
-The first five cases are the workbook's sample tests. The sixth case checks the malformed-input improvement.
-
-**Testing note:** Record the actual output and PASS or FAIL status in `tests/test_samples.md` after running the program. Do not mark a test as passed unless you have verified its result.
+**Note:** These tests verify the selected warning rules. They do not establish whether a URL is genuinely safe or malicious.
 
 ## Screenshots
 
-### Sample Program Run
+### Command-Line Sample Run
 
-This screenshot shows the program running and explaining detected URL warning signs.
-
-![Sample run](screenshots/sample_run.png)
+![Command-line sample run](screenshots/sample_run.png)
 
 ### Test Results
 
-This screenshot shows additional URL checks, including malformed URL handling.
-
 ![Test results](screenshots/test_results.png)
 
-## Improvements
+## Web Application
 
-### 1. Malformed URL Handling
+The Flask web interface allows users to enter a URL through a browser and review the warning signs detected by the checker.
 
-**What changed:** Added `try/except ValueError` around URL parsing.
+The interface displays explanations alongside the results and includes a notice explaining the limitations of URL-based inspection.
 
-**Why it matters:** Some malformed URL inputs can cause Python's URL parser to raise an error. Handling that error allows the program to display a helpful message instead of unexpectedly stopping.
+### Live Demo
 
-**How it is tested:** Enter the sample malformed input `http://[bad` and confirm that the program displays an invalid-format message without crashing. Rerun all five required sample tests to check that the original functionality still works.
+**Live demo:** To be added after successful deployment.
 
-### 2. Explanations for Warning Signs
+## Possible Improvements
 
-**What changed:** Added a `WARNING_REASONS` dictionary that associates warning messages with explanations. When a warning is detected, the program displays the corresponding reason.
+Future improvements could include:
 
-**Why it matters:** Explanations help users understand why a URL pattern deserves attention instead of simply displaying a warning.
-
-**How it is tested:** Run sample URLs that trigger different warning signs and verify that each warning is followed by its explanation. Rerun all five required sample tests.
+1. Adding more URL inspection rules and improving hostname parsing.
+2. Developing automated unit tests for individual detection rules.
+3. Improving accessibility and the web interface.
+4. Adding a clearer separation between malformed input and valid URLs with warning signs.
+5. Expanding educational guidance about phishing prevention.
 
 ## Limitations
 
-This project is an educational awareness tool, not a complete phishing detection system.
-
-- It only examines the text entered by the user.
-- It does not open URLs or visit websites.
-- It does not check website reputation or domain registration.
-- It does not scan for malware.
-- It does not determine whether a website is legitimate.
-- Some legitimate URLs may trigger warnings.
-- Some malicious URLs may trigger no warnings.
-- HTTPS does not guarantee that a website is safe.
-- No listed warning signs does **NOT** mean a URL is safe.
-
-Users should check website addresses carefully and avoid entering sensitive information on unfamiliar or suspicious websites.
+- The checker uses a limited set of heuristic rules.
+- It does not visit websites or inspect their content.
+- It does not verify domain ownership, certificates, reputation, or website behavior.
+- Legitimate URLs may trigger warnings.
+- Malicious URLs may not trigger any warnings.
+- HTTPS does not guarantee that a website is trustworthy.
+- A URL with no detected warning signs should not be considered safe solely because of this tool.
 
 ## Ethical Use
 
-This project is intended for cybersecurity education and online safety awareness.
+This project is intended for cybersecurity awareness, educational demonstrations, and learning about suspicious URL patterns.
 
-- Use sample URL strings for testing.
-- Do not collect passwords, OTPs, payment details, or other sensitive information.
-- Do not use the project to deceive people.
-- Do not test websites or systems without permission.
-- Do not treat the program's results as a guarantee of safety.
-- Use the tool responsibly to learn about suspicious URL patterns.
+Do not enter confidential information into untrusted websites. Always verify website addresses independently before sharing passwords, payment information, or other sensitive data.
 
 ## Author
 
 **Shaibanya Dey**
 
-EWB Courses — Cybersecurity Mini Project
+GitHub: [Shaibanya](https://github.com/Shaibanya)
 
-**Project:** Phishing URL Awareness Checker
+## Disclaimer
+
+This project is an educational tool and is provided for awareness purposes only
